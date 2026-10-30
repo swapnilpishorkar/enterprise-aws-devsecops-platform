@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'enterprise-devsecops-platform'
+        IMAGE_TAG = 'ci-${BUILD_NUMBER}'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -23,6 +28,16 @@ pipeline {
             steps {
                 sh '''
                     .venv-ci/bin/python -m pytest -v
+                '''
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    docker build \
+                        -t ${IMAGE_NAME}:${IMAGE_TAG} \
+                        .
                 '''
             }
         }
