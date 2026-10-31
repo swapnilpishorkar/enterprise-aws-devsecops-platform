@@ -1,0 +1,34 @@
+output "vpc_id" {
+  description = "Development VPC ID"
+  value       = module.vpc.vpc_id
+}
+
+output "public_subnet_ids" {
+  description = "Development public subnet IDs"
+  value       = module.vpc.public_subnet_ids
+}
+
+output "internet_gateway_id" {
+  description = "Development Internet Gateway ID"
+  value       = module.vpc.internet_gateway_id
+}
+
+output "private_subnet_ids" {
+  description = "Development private subnet IDs"
+  value       = module.vpc.private_subnet_ids
+}
+
+output "private_route_table_id" {
+  description = "Development private route table ID"
+  value       = module.vpc.private_route_table_id
+}
+
+output "alb_security_group_id" {
+  description = "Development ALB security group ID"
+  value       = module.security_groups.alb_security_group_id
+}
+
+output "app_security_group_id" {
+  description = "Development application security group ID"
+  value       = module.security_groups.app_security_group_id
+}
