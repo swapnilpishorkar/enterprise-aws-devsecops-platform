@@ -32,3 +32,13 @@ output "app_security_group_id" {
   description = "Development application security group ID"
   value       = module.security_groups.app_security_group_id
 }
+
+output "eks_cluster_role_arn" {
+  description = "Development EKS cluster IAM role ARN"
+  value       = module.iam.eks_cluster_role_arn
+}
+
+output "eks_node_role_arn" {
+  description = "Development EKS node IAM role ARN"
+  value       = module.iam.eks_node_role_arn
+}

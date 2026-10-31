@@ -3,8 +3,6 @@ resource "aws_security_group" "alb" {
   description = "Security group for public Application Load Balancer"
   vpc_id      = var.vpc_id
 
-  ingress = []
-  egress  = []
 
   tags = {
     Name = "${var.project_name}-alb-sg"
@@ -17,8 +15,6 @@ resource "aws_security_group" "app" {
   description = "Security group for private application workloads"
   vpc_id      = var.vpc_id
 
-  ingress = []
-  egress  = []
 
   tags = {
     Name = "${var.project_name}-app-sg"
