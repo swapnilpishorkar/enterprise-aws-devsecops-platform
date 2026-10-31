@@ -41,5 +41,37 @@ pipeline {
                 '''
             }
         }
+
+        stage('Trivy Image Scan') {
+            steps {
+                sh '''
+                    echo "Generating Trivy vulnerability report..."
+
+                    trivy image \
+                        --scanners vuln \
+                        --severity HIGH,CRITICAL \
+                        --format json \
+                        --output trivy-report.json \
+                        "${IMAGE_NAME}:${IMAGE_TAG}"
+
+                    echo "Checking security gate..."
+
+                    trivy image \
+                        --scanners vuln \
+                        --severity HIGH,CRITICAL \
+                        --exit-code 1 \
+                        "${IMAGE_NAME}:${IMAGE_TAG}"
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts(
+                artifacts: 'trivy-report.json',
+                allowEmptyArchive: true
+            )
+        }
     }
 }
