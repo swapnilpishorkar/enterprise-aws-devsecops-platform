@@ -44,3 +44,9 @@ module "iam" {
 
   project_name = "enterprise-devsecops"
 }
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  repository_name = "enterprise-devsecops-app"
+}
