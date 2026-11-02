@@ -57,3 +57,23 @@ output "ecr_repository_arn" {
   description = "Development ECR repository ARN"
   value       = module.ecr.repository_arn
 }
+
+output "eks_cluster_name" {
+  description = "Development EKS cluster name"
+  value       = module.eks.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  description = "Development EKS Kubernetes API endpoint"
+  value       = module.eks.cluster_endpoint
+}
+
+output "eks_cluster_version" {
+  description = "Development EKS Kubernetes version"
+  value       = module.eks.cluster_version
+}
+
+output "eks_node_group_name" {
+  description = "Development EKS managed node group name"
+  value       = module.eks.node_group_name
+}

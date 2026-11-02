@@ -29,8 +29,10 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "Public"
+    Name                                             = "${var.project_name}-public-${count.index + 1}"
+    Tier                                             = "Public"
+    "kubernetes.io/role/elb"                         = "1"
+    "kubernetes.io/cluster/enterprise-devsecops-eks" = "shared"
   }
 }
 
@@ -64,8 +66,10 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project_name}-private-${count.index + 1}"
-    Tier = "Private"
+    Name                                             = "${var.project_name}-private-${count.index + 1}"
+    Tier                                             = "Private"
+    "kubernetes.io/role/internal-elb"                = "1"
+    "kubernetes.io/cluster/enterprise-devsecops-eks" = "shared"
   }
 }
 

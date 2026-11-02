@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: enterprise-devsecops-app
+  namespace: devsecops
+  labels:
+    app: enterprise-devsecops-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: enterprise-devsecops-app
+
+  template:
+    metadata:
+      labels:
+        app: enterprise-devsecops-app
+
+    spec:
+      containers:
+        - name: flask-app
+
+          image: 230944684832.dkr.ecr.ap-southeast-2.amazonaws.com/enterprise-devsecops-app:b3aa5aa
+
+          imagePullPolicy: Always
+
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
